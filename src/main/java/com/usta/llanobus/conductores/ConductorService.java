@@ -2,6 +2,7 @@ package com.usta.llanobus.conductores;
 
 import com.usta.llanobus.comun.LlanoBusException;
 import com.usta.llanobus.db.BaseDeDatos;
+import java.util.Collection;
 
 public class ConductorService {
     private final BaseDeDatos db;
@@ -19,4 +20,6 @@ public class ConductorService {
         if (c == null) throw new LlanoBusException("No se encontró conductor asignado");
         return c;
     }
+
+    public Collection<Conductor> listar() { return db.conductores.values(); }
 }
