@@ -5,6 +5,7 @@ import com.usta.llanobus.buses.BusService;
 import com.usta.llanobus.comun.LlanoBusException;
 import com.usta.llanobus.conductores.ConductorService;
 import com.usta.llanobus.db.BaseDeDatos;
+import java.util.Collection;
 
 import java.util.List;
 
@@ -20,11 +21,17 @@ public class ViajeService {
     }
 
     public Ruta registrarRuta(String origen, String destino) {
+        if (origen.length() < 3 || destino.length() < 3) {
+            throw new LlanoBusException("400 - Origen y destino deben tener al menos 3 letras");
+        }
         String codigo = origen.substring(0, 3).toUpperCase() + "-" + destino.substring(0, 3).toUpperCase();
         Ruta r = new Ruta(codigo, origen, destino);
         db.rutas.put(codigo, r);
         return r;
     }
+
+    public Collection<Ruta> listarRutas()   { return db.rutas.values(); }
+    public Collection<Viaje> listarViajes() { return db.viajes.values(); }
 
     public Viaje programarViaje(String rutaCodigo, String fechaHora, int busId, int conductorId, double precio) {
         if (!db.rutas.containsKey(rutaCodigo)) throw new LlanoBusException("Ruta no existe: " + rutaCodigo);

@@ -44,4 +44,9 @@ public class Viaje {
         return "Viaje{id=" + id + ", ruta=" + rutaCodigo + ", salida=" + fechaHora
                 + ", disponibles=" + asientosDisponibles() + ", precio=" + precio + "}";
     }
+
+    public Set<Integer> getAsientosOcupados() {
+        return new java.util.TreeSet<>(asientosOcupados);
+    }
+
 }
